@@ -37,7 +37,7 @@ What sets this project apart is its built-in **AI research assistant**, which en
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/opencommerce-ai.git
+git clone [https://github.com/yourusername/opencommerce-ai.git](https://github.com/SebasValencia1/Ecom.git
 cd opencommerce-ai
 
 # Install backend dependencies

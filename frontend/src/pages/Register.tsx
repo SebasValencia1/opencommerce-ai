@@ -1,4 +1,6 @@
+import { Alert, Box, Button, Container, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { redirect, RoutepPage } from '../commons/router';
 import { RegisterPayload, registerUser } from '../services/userService';
 
 const Register = () => {
@@ -19,25 +21,64 @@ const Register = () => {
     e.preventDefault();
     setError('');
     registerUser(formData)
-        .then(() => setSuccess('Registration successful!'))
+      .then(() => {
+        setSuccess('Registration successful!')
+        setTimeout(() => {
+          redirect(RoutepPage.LOGIN);
+        }, 3000);
+      })
         .catch((err: any) => setError(err.response?.data?.message || 'Registration failed'));
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="name" type="text" placeholder="Name" onChange={handleChange} required />
-        <br />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-        <br />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-        <br />
-        <button type="submit">Register</button>
-      </form>
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </div>
+    <Container maxWidth="xs">
+      <Box sx={{ mt: 8 }}>
+        <Typography variant="h5" gutterBottom>
+          Register
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={2}>
+            <TextField
+              name="name"
+              label="Name"
+              fullWidth
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              name="email"
+              label="Email"
+              type="email"
+              fullWidth
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              fullWidth
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+            SUBMIT
+            </Button>
+          </Stack>
+        </form>
+
+        {success && (
+          <Alert severity="success" sx={{ mt: 2 }}>
+            {success}
+          </Alert>
+        )}
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
+      </Box>
+    </Container>
   );
 };
 
